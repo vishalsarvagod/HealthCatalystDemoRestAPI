@@ -42,7 +42,7 @@ namespace HealthCatalystDemoRestAPI.Controllers
         public IActionResult Getcustomer(Customer customer)
         {
             _customersData.AddCustomer(customer);
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + customer.Id,customer);
+            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + customer.CustomerId,customer);
         }
 
         [HttpDelete]
@@ -53,6 +53,20 @@ namespace HealthCatalystDemoRestAPI.Controllers
             if(customer != null)
             {
                 _customersData.DeleteCustomer(customer);
+                return Ok();
+            }
+            return NotFound($"Customer with Id: {id} was not found");
+        }
+
+        [HttpPatch]
+        [Route("api/[controller]/{id}")]
+        public IActionResult EditCustomer(Guid id,Customer customer)
+        {
+            var customerDate = _customersData.GetCustomer(id);
+            if (customerDate != null)
+            {
+                customer.CustomerId = customerDate.CustomerId;
+                _customersData.EditCustomer(customer);
                 return Ok();
             }
             return NotFound($"Customer with Id: {id} was not found");
