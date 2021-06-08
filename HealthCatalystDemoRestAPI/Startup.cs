@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HealthCatalystDemoRestAPI.CustomersData;
+using HealthCatalystDemoRestAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,11 +29,8 @@ namespace HealthCatalystDemoRestAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContextPool<CustomerContext.CustomerContext>(
-                options =>
-                {
-                    options.UseSqlServer(Configuration.GetConnectionString("CustomerContextConnectionString"));
-                });
+            services.AddDbContextPool<CustomerContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("CustomerContextConnectionString")));
             services.AddScoped<ICustomersData, SqlCustomerData>();
         }
 

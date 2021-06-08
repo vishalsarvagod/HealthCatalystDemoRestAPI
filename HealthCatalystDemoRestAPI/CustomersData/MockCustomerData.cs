@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HealthCatalystDemoRestAPI.CustomerContext;
 
 namespace HealthCatalystDemoRestAPI.CustomersData
 {
-    public class MockCustomerData : ICustomersData
+    public class MockCustomerData 
     {
         //private List<Customer> customers = new List<Customer>()
         //{
